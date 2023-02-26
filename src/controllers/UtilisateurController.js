@@ -7,10 +7,8 @@ const jwt = require('jsonwebtoken');
 /*Insérer un nouveau utilisateur dans la table utilisateur*/
 exports.insert = (req, ress) => {
     if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
-        ress.send({ status: 0, data: err });
+        ress.send({ status: 0, data: 'Tous les champs sont obligatoire' });
     } else {
-        // console.log(req.body);
-
 
         let utilisateur_nouveau = {
             nom: '',

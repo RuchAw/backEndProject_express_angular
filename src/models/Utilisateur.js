@@ -36,7 +36,7 @@ Utilisateur.connexion = (email, password, result) => {
     connexion.query('SELECT * FROM utilisateurs WHERE email=? and password=? ', [email, password], (err, res) => {
 
         if (err) {
-            result(null, err);
+            result(err, null);
         } else {
             result(null, res);
             // console.log(res);
@@ -47,7 +47,7 @@ Utilisateur.connexion = (email, password, result) => {
 
 //vérifier si un attribut est vide
 Utilisateur.verifier = function (utilisateur) {
-    if (utilisateur.nom == '' || utilisateur.marque == '' || utilisateur.prix == 0 || utilisateur.qtestock == 0)
+    if (utilisateur.nom == '' || utilisateur.email == '' || utilisateur.password == '' || utilisateur.photo == '' || utilisateur.idRole == '')
         return true;
 };
 
