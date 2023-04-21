@@ -30,15 +30,13 @@ console.log(res.insertId);
 result(null, res.insertId);
 }
 });
-
-
 }
 
 /**Afficher tout les roles**/
 Role.afficherAll = (result) =>{
     connexion.query('SELECT * FROM roles', (err, res)=>{
         if(err){
-            result(err,null);
+            result(null,err);
         }else{
         /*retourne la liste des roles*/
             result(null,res);
@@ -47,14 +45,41 @@ Role.afficherAll = (result) =>{
 
 }
 
+/*Supprimer un role par son ID*/
+Role.supprimer = (id, result)=>{
+    connexion.query('DELETE FROM roles WHERE id=?', [id], (err, res)=>{
+        if(err){
+            result(null, err);
+        }else{
+            result(null, res);
+        }
+    })
+}
 
-//vérifier si un attribut est vide
-Role.verifier=function(role)
-{
-if(role.nom=='')
-return true;
-};
+/*Chercher un Role par son id*/
+Role.details = (id, result)=>{
+    connexion.query('SELECT * FROM roles WHERE id=?', id, (err, res)=>{
+        if(err){
+            result(null, err);
+        }else{
+            result(null, res);
+        }
+    })
+}
 
+/*Modifier un role*/
+Role.updateRole = (id, role_nouveau, result)=>{
+    connexion.query("UPDATE roles SET nom=? WHERE id = ?", 
+    [role_nouveau.nom,id],
+    (err, res)=>{
+        if(err){
+            result(null, err);
+        }else{
+            result(null, res);
+        }
+    });
+
+}
 
 
 /*Exporter la classe pour pouvoir l'importer dans le controller */

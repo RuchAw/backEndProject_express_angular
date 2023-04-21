@@ -19,9 +19,10 @@ exports.insert = (req, ress) => {
             active: 0,
         }
 
-
+        console.log(req.body)
         //récupérer userInfo envoyé par Angular
         utilisateur_nouveau = JSON.parse(req.body.userInfo);
+        // console.log(utilisateur_nouveau);
         //Crypter le mot de passe 
         utilisateur_nouveau.password = md5(utilisateur_nouveau.password);
 

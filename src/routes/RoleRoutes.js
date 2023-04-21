@@ -4,20 +4,33 @@ const express = require('express');
 const routerRoles = express.Router();
 /*imporer roleController*/
 const roleController = require('../controllers/RoleController');
-
-
-/*Afficher tout les role*/
-routerRoles.get('/', roleController.afficherAll);
-
-
-
-//sécuriser l'accés à la route ajouter un role
 const auth = require('../middleware/auth');
-/*la route:=> roles/ajouter ,avec la méthode POST */
+/*la route:=> roles/ajouter ,avec la m�thode POST */
 //routerRoles.post('/ajouter', roleController.insert);
 routerRoles.post('/ajouter', auth.verifyToken, async (req, res) => {
 roleController.insert(req,res);
 });
 
+//afficher all
+routerRoles.get('/', async (req, res) => {
+roleController.afficherAll(req,res);
+});
+
+
+//supprimer
+routerRoles.get('/details/:id', auth.verifyToken, async (req, res) => {
+roleController.details(req,res);
+});
+
+
+//modifier
+routerRoles.post('/modifier/:id', auth.verifyToken, async (req, res) => {
+roleController.updateRole(req,res);
+});
+
+//d�tails par id
+routerRoles.get('/supprimer/:id', auth.verifyToken, async (req, res) => {
+roleController.supprimer(req,res);
+});
 
 module.exports = routerRoles
